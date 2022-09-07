@@ -1,8 +1,9 @@
 import { BaseDatabase } from './BaseDatabase'
 import { show } from '../models/Show'
 import { CustomError } from '../errors/CustomError'
+import { ShowRepository } from '../business/ShowRepository'
 
-export class ShowDatabase extends BaseDatabase {
+export class ShowDatabase extends BaseDatabase implements ShowRepository {
     private static table_name = 'lama_shows'
 
     insertShow = async (show: show): Promise<void> => {

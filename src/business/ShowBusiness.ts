@@ -1,15 +1,13 @@
-import { ShowDatabase } from '../data/ShowDatabase'
 import { CustomError, InvalidTime, Unauthorized } from '../errors/CustomError'
 import { RegisterShowDTO, show } from '../models/Show'
 import Authorization from '../services/Authorization'
 import IdGenerator from '../services/IdGenerator'
+import { ShowRepository } from './ShowRepository'
 
 export class ShowBusiness {
-    private showDatabase: ShowDatabase
-
-    constructor() {
-        this.showDatabase = new ShowDatabase()
-    }
+    constructor(
+        private showDatabase: ShowRepository
+    ) {}
 
     registerShow = async (input: RegisterShowDTO): Promise<void> => {
         const { weekDay, startTime, endTime, bandId, token } = input

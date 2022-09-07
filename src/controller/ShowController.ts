@@ -2,12 +2,10 @@ import { Request, Response } from 'express'
 import { ShowBusiness } from '../business/ShowBusiness'
 import { RegisterShowDTO } from '../models/Show'
 
-export class ShowController {
-    private showBusiness: ShowBusiness
-    
-    constructor() {
-        this.showBusiness = new ShowBusiness()
-    }
+export class ShowController {  
+    constructor(
+        private showBusiness: ShowBusiness
+    ) {}
 
     registerShow = async (req: Request, res: Response): Promise<void> => {
         try {

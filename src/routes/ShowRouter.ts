@@ -1,8 +1,12 @@
 import express from 'express'
+import { ShowBusiness } from '../business/ShowBusiness'
 import { ShowController } from '../controller/ShowController'
+import { ShowDatabase } from '../data/ShowDatabase'
 
 export const showRouter = express.Router()
 
-const showController = new ShowController()
+const showDatabase = new ShowDatabase()
+const showBusiness = new ShowBusiness(showDatabase)
+const showController = new ShowController(showBusiness)
 
-showRouter.post('/register', showController.registerShow)
+showRouter.post('/register', (req, res) => showController.registerShow(req, res))
