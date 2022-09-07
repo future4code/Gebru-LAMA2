@@ -1,6 +1,6 @@
 import * as bcrypt from "bcryptjs"
 
-class HashManager { 
+export class HashManager { 
 
     generateHash = async (pass: string) :Promise<string> => {
         const rounds = Number(process.env.BCRYPT_COST)

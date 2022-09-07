@@ -1,8 +1,9 @@
 
 import * as jwt from "jsonwebtoken";
+import { IAuthenticator } from "../business/Ports";
 import { AuthenticationData } from "../models/User";
 
-class Authenticator {
+export class Authenticator implements IAuthenticator {
     generateToken = (payload: AuthenticationData) :string => {
         const token = jwt.sign(
             payload, 

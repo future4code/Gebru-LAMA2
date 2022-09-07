@@ -1,7 +1,8 @@
 import { v4 } from "uuid"
+import { IIdGenerator } from "../business/Ports"
 
-class IdGenerator {
-    generateId = () => {
+export class IdGenerator implements IIdGenerator {
+    generateId = (): string => {
         return v4()
     }
 }

@@ -1,12 +1,13 @@
 import { CustomError, InvalidTime, Unauthorized } from '../errors/CustomError'
 import { RegisterShowDTO, show } from '../models/Show'
-import Authorization from '../services/Authorization'
-import IdGenerator from '../services/IdGenerator'
+import { IAuthenticator, IIdGenerator } from './Ports'
 import { ShowRepository } from './ShowRepository'
 
 export class ShowBusiness {
     constructor(
-        private showDatabase: ShowRepository
+        private showDatabase: ShowRepository,
+        private authorization: IAuthenticator,
+        private idGenerator: IIdGenerator
     ) {}
 
     registerShow = async (input: RegisterShowDTO): Promise<void> => {
@@ -20,13 +21,13 @@ export class ShowBusiness {
             throw new InvalidTime()
         }
 
-        const data = Authorization.getTokenData(token)
+        const data = this.authorization.getTokenData(token)
 
         if (!data.id) {
             throw new Unauthorized()
         }
 
-        const id: string = IdGenerator.generateId()
+        const id: string = this.idGenerator.generateId()
 
         const show: show = {
             id,
