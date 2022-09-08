@@ -1,4 +1,4 @@
-enum DAY_TYPES {
+export enum DAY_TYPES {
     SEXTA = 'SEXTA',
     SABADO = 'SÁBADO',
     DOMINGO = 'DOMINGO'
