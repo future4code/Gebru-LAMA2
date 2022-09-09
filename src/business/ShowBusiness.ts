@@ -1,4 +1,4 @@
-import { CustomError, InvalidTime, Unauthorized } from '../errors/CustomError'
+import { CustomError, InvalidDay, InvalidTime, Unauthorized } from '../errors/CustomError'
 import { RegisterShowDTO, show } from '../models/Show'
 import { IAuthenticator, IIdGenerator } from './Ports'
 import { ShowRepository } from './ShowRepository'
@@ -13,8 +13,12 @@ export class ShowBusiness {
     registerShow = async (input: RegisterShowDTO): Promise<void> => {
         const { weekDay, startTime, endTime, bandId, token } = input
 
-        if (!weekDay || !startTime || !endTime || !bandId || !token) {
+        if (!startTime || !endTime || !bandId || !token) {
             throw new CustomError(400, 'Fill in the title and preparate mode fields')
+        }
+
+        if (weekDay !== "SEXTA" && weekDay !== "SÁBADO" && weekDay !== "DOMINGO") {
+            throw new InvalidDay()
         }
 
         if (startTime < 8 || endTime > 23) {

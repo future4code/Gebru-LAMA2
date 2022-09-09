@@ -15,3 +15,9 @@ export class InvalidTime extends CustomError {
         super(401, 'Invalid Time')
     }
 }
+
+export class InvalidDay extends CustomError {
+    constructor() {
+        super(401, 'Invalid Day')
+    }
+}

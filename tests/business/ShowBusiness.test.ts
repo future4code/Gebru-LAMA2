@@ -12,22 +12,22 @@ const authorizationMock = new AuthorizationMock()
 const showBusinessTest = new ShowBusiness(showDatabaseMock, authorizationMock, idGeneratorMock)
 
 describe('Testing show registration in showBusiness', () => {
-    test('Error case: weekDay was not passed in the body', async () => {
-        expect.assertions(3)
+    test('Error case: endTime greater than 23', async () => {
+        expect.assertions(2)
         
         try {
             const weekDay = DAY_TYPES.SEXTA
             const startTime = 10
-            const endTime = 15
-            const bandId = ""
+            const endTime = 24
+            const bandId = "12354"
             const token = "token"
         
             await showBusinessTest.registerShow({weekDay, startTime, endTime, bandId, token})
         } catch (error: any) {
             expect(error).toBeDefined()
-            expect(error.statusCode).toBe(400)
-            expect(error.message).toBe('Fill in the title and preparate mode fields')
+            // expect(error.statusCode).toBe(401)
+            expect(error.message).toBe('Invalid Time')
         }
-           
     })
+    
 })
