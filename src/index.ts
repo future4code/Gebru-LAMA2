@@ -3,5 +3,14 @@ import { userRouter } from "./routes/UserRouter"
 
 
 
+
 //
 app.use('/user',userRouter.post("/signup"))
+
+app.use()
+
+
+
+
+
+

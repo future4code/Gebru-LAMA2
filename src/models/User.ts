@@ -1,3 +1,4 @@
+
 export interface AuthenticationData {
     id: string
     role: string
@@ -74,6 +75,7 @@ export interface Login {
     email: string,
     password: string
 }
+
 
 
 
