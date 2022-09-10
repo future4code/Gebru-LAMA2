@@ -1,5 +1,5 @@
 import { CustomError, InvalidDay, InvalidTime, Unauthorized } from '../errors/CustomError'
-import { RegisterShowDTO, show } from '../models/Show'
+import { GetShowsDTO, RegisterShowDTO, show, shows } from '../models/Show'
 import { IAuthenticator, IIdGenerator } from './Ports'
 import { ShowRepository } from './ShowRepository'
 
@@ -42,5 +42,13 @@ export class ShowBusiness {
         }
 
         await this.showDatabase.insertShow(show)
+    }
+
+    getShows = async (input: GetShowsDTO): Promise<shows> => {
+        const weekDay = input
+
+        const shows = await this.showDatabase.selectShows(weekDay.weekDay)
+
+        return shows
     }
 }

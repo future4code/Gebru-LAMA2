@@ -19,3 +19,12 @@ export interface RegisterShowDTO {
     bandId: string
     token: string
 }
+
+export interface GetShowsDTO {
+    weekDay: DAY_TYPES
+}
+
+export type shows = {
+    nameBand: string
+    gender: string
+}
