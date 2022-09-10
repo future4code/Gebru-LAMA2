@@ -1,4 +1,5 @@
--- Active: 1658871330862@@35.226.146.116@3306@gebru-4211824-helaine-ribeiro
+-- Active: 1656975277986@@35.226.146.116@3306@gebru-4211616-mileny-faria
+
 CREATE TABLE IF NOT EXISTS lama_users (
   id VARCHAR(255) PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
@@ -22,3 +23,6 @@ CREATE TABLE IF NOT EXISTS lama_shows (
   band_id VARCHAR(255) NOT NULL,
   FOREIGN KEY(band_id) REFERENCES lama_bands(id)
 );
+
+ALTER TABLE lama_shows
+MODIFY week_day ENUM('SEXTA', 'SÁBADO', 'DOMINGO');
