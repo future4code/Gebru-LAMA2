@@ -1,5 +1,5 @@
 import { BaseDatabase } from './BaseDatabase'
-import { show } from '../models/Show'
+import { DAY_TYPES, show, shows } from '../models/Show'
 import { CustomError } from '../errors/CustomError'
 import { ShowRepository } from '../business/ShowRepository'
 
@@ -17,6 +17,20 @@ export class ShowDatabase extends BaseDatabase implements ShowRepository {
                 end_time: show.endTime,
                 band_id: show.bandId
             })
+            
+        } catch (error: any) {
+            throw new CustomError(400, error.sqlMessage)
+        }
+    }
+
+    selectShows = async (weekDay: DAY_TYPES): Promise<shows> => {
+        try {
+            const result = await ShowDatabase
+            .connection(ShowDatabase.table_name)
+            .select()
+            .where('week_day', weekDay)
+
+            return result[0]
             
         } catch (error: any) {
             throw new CustomError(400, error.sqlMessage)
