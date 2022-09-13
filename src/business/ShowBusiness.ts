@@ -13,21 +13,20 @@ export class ShowBusiness {
     registerShow = async (input: RegisterShowDTO): Promise<void> => {
         const { weekDay, startTime, endTime, bandId, token } = input
 
-        if (!startTime || !endTime || !bandId || !token) {
-            throw new CustomError(400, 'Fill in the title and preparate mode fields')
-        }
-
         if (weekDay !== "SEXTA" && weekDay !== "SÁBADO" && weekDay !== "DOMINGO") {
             throw new InvalidDay()
+        }
+        
+        if (!startTime || !endTime || !bandId || !token) {
+            throw new CustomError(400, 'Body information is missing')
         }
 
         if (startTime < 8 || endTime > 23) {
             throw new InvalidTime()
         }
 
-        const data = this.authorization.getTokenData(token)
-
-        if (!data.id) {
+        const tokenData = this.authorization.getTokenData(token)
+        if(tokenData.role !== 'ADMIN') {
             throw new Unauthorized()
         }
 

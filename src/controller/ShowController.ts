@@ -11,10 +11,10 @@ export class ShowController {
         try {
             const input: RegisterShowDTO = {
                 weekDay: req.body.weekDay,
-                startTime: req.body.startTime,
-                endTime: req.body.endTime,
+                startTime: Number(req.body.startTime),
+                endTime: Number(req.body.endTime),
                 bandId: req.params.bandId,
-                token: req.headers.authorization!
+                token: req.headers.authorization as string
             }
             
             await this.showBusiness.registerShow(input)
