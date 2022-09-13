@@ -4,8 +4,8 @@ POST http://localhost:3003/user/signup
 Content-Type: application/json
 
 {
-	"name": "teste3",
-	"email": "teste3@lbn.com",
+	"name": "teste5",
+	"email": "teste5@lbn.com",
 	"password": "123456",
     "role":"ADMIN"
 }
@@ -16,10 +16,11 @@ POST http://localhost:3003/user/login
 Content-Type: application/json
 
 {
-	"email": "teste2@lbn.com",
+	"email": "teste4@lbn.com",
 	"password": "123456"
 }
 
+###
 // pegar usuarios
 GET http://localhost:3003/user/users
 
@@ -32,6 +33,7 @@ GET http://localhost:3003/user/users/:id
 ###
 POST http://localhost:3003/band/bands
 Content-Type: application/json
+Authorization:
 
 {
 "name": "The Beatles",

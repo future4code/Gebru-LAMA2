@@ -1,6 +1,6 @@
-/* import { Request, Response } from "express";
+import { Request, Response } from "express";
 import { BandBusiness } from "../business/BandBusiness";
-import { invalidBand } from "../errors/CustomError";
+import { CustomError, invalidBand } from "../errors/CustomError";
 import { BandInputDTO } from "../models/Band";
 
 export class BandController {
@@ -9,6 +9,7 @@ export class BandController {
     async createBandController(req: Request, res: Response) {
         try {
 
+            const token = req.headers.authorization as string
             const { name, music_genre,responsible } = req.body
 
             const band: BandInputDTO = {
@@ -18,15 +19,13 @@ export class BandController {
                 token
             }
 
-            const token = await this.bandBusiness.createBandBusiness(band);
+             await this.bandBusiness.createBandBusiness(band);
            
-
-            await this.bandBusiness.createBandBusiness(band)
 
             res.status(201).send({ message: "Banda criada com sucesso!" })
 
         } catch (error: any) {
-            res.status(error.statusCode).send(error.message)
+            throw new CustomError(error.statusCode, error.sqlMessage || error.message);
         }
     }
       
@@ -48,7 +47,7 @@ export class BandController {
             res.status(200).send(band)
 
         } catch (error: any) {
-            res.status(error.statusCode).send(error.message)
+            throw new CustomError(error.statusCode, error.sqlMessage || error.message);
         }
     }
-} */
+} 
