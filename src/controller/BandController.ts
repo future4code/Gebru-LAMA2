@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+/* import { Request, Response } from "express";
 import { BandBusiness } from "../business/BandBusiness";
 import { invalidBand } from "../errors/CustomError";
 import { BandInputDTO } from "../models/Band";
@@ -9,17 +9,17 @@ export class BandController {
     async createBandController(req: Request, res: Response) {
         try {
 
-            const token = req.headers.authorization as string
-
             const { name, music_genre,responsible } = req.body
 
             const band: BandInputDTO = {
                 name,
                 music_genre,
                 responsible,
-                token: token
-
+                token
             }
+
+            const token = await this.bandBusiness.createBandBusiness(band);
+           
 
             await this.bandBusiness.createBandBusiness(band)
 
@@ -29,6 +29,9 @@ export class BandController {
             res.status(error.statusCode).send(error.message)
         }
     }
+      
+    
+
 
     async bandByIdController(req: Request, res: Response) {
         try {
@@ -48,4 +51,4 @@ export class BandController {
             res.status(error.statusCode).send(error.message)
         }
     }
-}
+} */

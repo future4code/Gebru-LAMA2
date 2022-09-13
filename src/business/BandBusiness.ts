@@ -1,4 +1,6 @@
-import { CustomError, invalidBand,invalidAuthenticatorData, invalidToken,MissingFieldsToComplete } from "../errors/CustomError";
+
+
+import { CustomError, invalidBand,invalidAuthenticatorData, invalidToken, MissingFieldsToComplete} from "../errors/CustomError";
 import { Band, BandInputDTO } from "../models/Band";
 import { Authenticator } from "../services/Authorization";
 import { IdGenerator } from "../services/IdGenerator";
@@ -11,15 +13,14 @@ export class BandBusiness {
     async createBandBusiness(input:BandInputDTO) {
         try {
 
-            const { name, music_genre,responsible, token } = input
+            const { name, music_genre,responsible ,token} = input
 
-            if (!token) {
-                throw new invalidToken()
-            }
 
-            if (!name || !music_genre) {
+            if (!name || !music_genre || !responsible) {
                 throw new MissingFieldsToComplete()
             }
+
+          
 
             const authenticatorData = new Authenticator().getTokenData(token)
 
@@ -38,7 +39,7 @@ export class BandBusiness {
             }
 
             await this.bandDatabase.createBand(band)
-
+            
 
         } catch (error: any) {
             throw new CustomError(error.statusCode, error.sqlMessage || error.message);

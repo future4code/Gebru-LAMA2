@@ -4,8 +4,8 @@ POST http://localhost:3003/user/signup
 Content-Type: application/json
 
 {
-	"name": "teste1",
-	"email": "teste1@lbn.com",
+	"name": "teste3",
+	"email": "teste3@lbn.com",
 	"password": "123456",
     "role":"ADMIN"
 }
@@ -16,24 +16,29 @@ POST http://localhost:3003/user/login
 Content-Type: application/json
 
 {
-	"email": "teste1@lbn.com",
+	"email": "teste2@lbn.com",
 	"password": "123456"
 }
 
 // pegar usuarios
 GET http://localhost:3003/user/users
 
-//criar usuarios
+
+// pegar usuarios pelo id
 ###
-POST http://localhost:3003/user/users
+GET http://localhost:3003/user/users/:id
+
+//criar bandas
+###
+POST http://localhost:3003/band/bands
 Content-Type: application/json
 
 {
-"name": "All",
-"email": "all@gmail.com", 
-"password": "1a1"  
+"name": "The Beatles",
+"music_genre": " rock", 
+"responsible": "John Lennon"  
 }
   
-//pegar usuario pelo id
+//pegar banda pelo id
 ###
-GET http://localhost:3003/users/1
+GET http://localhost:3003/band/bands/:id
