@@ -99,3 +99,11 @@ export class InvalidDay extends CustomError {
         super(401, 'Invalid Day')
     }
 }
+
+
+export class invalidBand extends CustomError {
+    constructor() {
+        super(404, "Has no bands")
+    }
+}
+
