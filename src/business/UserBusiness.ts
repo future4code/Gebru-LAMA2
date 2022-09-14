@@ -62,14 +62,14 @@ export class UserBusiness {
     }
   
     async loginBusiness(login: Login) {
-      try {
+     
         const { email, password } = login;
   
         if (!email || !password) {
           throw new MissingFieldsToComplete();
         }
   
-        const user = this.userDatabase.findUserEmail(email);
+        const user = await this.userDatabase.findUserEmail(email);
   
         if (!user) {
           throw new invalidUser();
@@ -80,22 +80,19 @@ export class UserBusiness {
         }
   
         
-    
         const hashManager = new HashManager();
         const passwordIsCorrect = await hashManager.compare(
-          password,(await user).password
+          password,user.password
         ); 
   
         const authenticator = new Authenticator();
-        const token = authenticator.generateToken({ id: (await user).id, role: (await user).role });
+        const token = authenticator.generateToken({ id:  user.id, role: user.role });
   
         if (!passwordIsCorrect) {
           throw new invalidPassword();
         }
         return token;
-      } catch (error: any) {
-        throw new CustomError(error.statusCode, error.sqlMessage || error.message);
-      }
+
     }
   
     async findUserBusiness(token: string) {

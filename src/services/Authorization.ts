@@ -18,10 +18,11 @@ export class Authenticator implements IAuthenticator {
         token,
         process.env.JWT_KEY as string
        ) as jwt.JwtPayload
-
+       //) as AuthenticationData
       const result: AuthenticationData = { id: payload.id , role: payload.role}
 
       return result
+      //return payload
     }
 }
 
