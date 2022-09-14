@@ -26,3 +26,14 @@ CREATE TABLE IF NOT EXISTS lama_shows (
 
 ALTER TABLE lama_shows
 MODIFY week_day ENUM('SEXTA', 'SÁBADO', 'DOMINGO');
+
+ALTER TABLE lama_bands
+MODIFY name VARCHAR(255) NOT NULL UNIQUE;
+
+INSERT INTO lama_bands
+VALUES (
+  "123456",
+  "Green Day",
+  "Rock",
+  "Billie Joe Armstrong"
+);
