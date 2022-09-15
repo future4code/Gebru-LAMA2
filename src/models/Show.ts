@@ -1,6 +1,6 @@
 export enum DAY_TYPES {
     SEXTA = 'SEXTA',
-    SABADO = 'SÁBADO',
+    SABADO = 'SABADO',
     DOMINGO = 'DOMINGO'
 }
 
@@ -26,5 +26,5 @@ export interface GetShowsDTO {
 
 export type shows = {
     nameBand: string
-    gender: string
+    genre: string
 }

@@ -17,23 +17,9 @@ CREATE TABLE IF NOT EXISTS lama_bands (
 
 CREATE TABLE IF NOT EXISTS lama_shows (
   id VARCHAR(255) PRIMARY KEY,
-  week_day VARCHAR(255) NOT NULL,
+  week_day ENUM('SEXTA', 'SABADO', 'DOMINGO'),
   start_time INT NOT NULL,
   end_time INT NOT NULL,
   band_id VARCHAR(255) NOT NULL,
   FOREIGN KEY(band_id) REFERENCES lama_bands(id)
-);
-
-ALTER TABLE lama_shows
-MODIFY week_day ENUM('SEXTA', 'SÁBADO', 'DOMINGO');
-
-ALTER TABLE lama_bands
-MODIFY name VARCHAR(255) NOT NULL UNIQUE;
-
-INSERT INTO lama_bands
-VALUES (
-  "123456",
-  "Green Day",
-  "Rock",
-  "Billie Joe Armstrong"
 );

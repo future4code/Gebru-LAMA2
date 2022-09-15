@@ -1,5 +1,5 @@
-import { CustomError, InvalidDay, InvalidTime, Unauthorized } from '../errors/CustomError'
-import { GetShowsDTO, RegisterShowDTO, show, shows } from '../models/Show'
+import { CustomError, InvalidDay, InvalidShow, InvalidTime, Unauthorized } from '../errors/CustomError'
+import { GetShowsDTO, RegisterShowDTO, show, shows, DAY_TYPES } from '../models/Show'
 import { IAuthenticator, IIdGenerator } from './Ports'
 import { ShowRepository } from './ShowRepository'
 
@@ -13,7 +13,7 @@ export class ShowBusiness {
     registerShow = async (input: RegisterShowDTO): Promise<void> => {
         const { weekDay, startTime, endTime, bandId, token } = input
 
-        if (weekDay !== "SEXTA" && weekDay !== "SÁBADO" && weekDay !== "DOMINGO") {
+        if (weekDay !== "SEXTA" && weekDay !== "SABADO" && weekDay !== "DOMINGO") {
             throw new InvalidDay()
         }
         
@@ -30,6 +30,16 @@ export class ShowBusiness {
             throw new Unauthorized()
         }
 
+        const showTimes = await this.showDatabase.selectShowByDate(
+            weekDay,
+            startTime,
+            endTime
+        )
+
+        if (showTimes.length > 0) {
+            throw new InvalidShow()
+        }
+
         const id: string = this.idGenerator.generateId()
 
         const show: show = {
@@ -43,11 +53,15 @@ export class ShowBusiness {
         await this.showDatabase.insertShow(show)
     }
 
-    getShows = async (input: GetShowsDTO): Promise<shows> => {
-        const weekDay = input
+    getShows = async (input: string): Promise<shows> => {
+        const weekDay: string = input
 
-        const shows = await this.showDatabase.selectShows(weekDay.weekDay)
+        if (!weekDay) {
+            throw new InvalidDay()
+        }
 
-        return shows
+        const getShows = await this.showDatabase.selectShows(weekDay)
+
+        return getShows
     }
 }
