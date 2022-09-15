@@ -13,7 +13,7 @@ export class ShowController {
                 weekDay: req.body.weekDay,
                 startTime: Number(req.body.startTime),
                 endTime: Number(req.body.endTime),
-                bandId: req.params.bandId,
+                bandId: req.body.bandId,
                 token: req.headers.authorization as string
             }
             
@@ -28,11 +28,9 @@ export class ShowController {
 
     getShows = async (req: Request, res: Response): Promise<void> => {
         try {
-            const input: GetShowsDTO = {
-                weekDay: req.body.weekDay,
-            }
+            const weekDay: string = req.query.weekDay as string
 
-            const shows = await this.showBusiness.getShows(input)
+            const shows = await this.showBusiness.getShows(weekDay)
 
             res.status(201).send(shows)
             

@@ -15,4 +15,4 @@ const showBusiness = new ShowBusiness(showDatabase, authorization, idGenerator)
 const showController = new ShowController(showBusiness)
 
 showRouter.post('/register', (req, res) => showController.registerShow(req, res))
-showRouter.get('/shows', (req, res) => showController.getShows(req, res))
+showRouter.get('/', (req, res) => showController.getShows(req, res))

@@ -107,3 +107,9 @@ export class invalidBand extends CustomError {
     }
 }
 
+export class InvalidShow extends CustomError {
+    constructor() {
+        super(401, "There's a show at this moment")
+    }
+}
+
